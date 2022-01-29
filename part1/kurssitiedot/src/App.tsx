@@ -12,16 +12,12 @@ const App = () => {
   return (
     <div>
       <Header course={course}></Header>
-      <p>
-        {part1} {exercises1}
-      </p>
-      <p>
-        {part2} {exercises2}
-      </p>
-      <p>
-        {part3} {exercises3}
-      </p>
-      <p>Number of exercises {exercises1 + exercises2 + exercises3}</p>
+
+      <Content parts={part1} exercises={exercises1}></Content>
+      <Content parts={part2} exercises={exercises2}></Content>
+      <Content parts={part3} exercises={exercises3}></Content>
+
+      <Total total={exercises1 + exercises2 + exercises3}></Total>
     </div>
   );
 };
@@ -29,6 +25,18 @@ const App = () => {
 const Header = (props: { course: string }) => {
   console.log(props);
   return <h1>{props.course}</h1>;
+};
+
+const Content = (props: { parts: string; exercises: number }) => {
+  return (
+    <p>
+      {props.parts} {props.exercises}
+    </p>
+  );
+};
+
+const Total = (props: { total: number }) => {
+  return <p>Number of exercises {props.total}</p>;
 };
 
 export default App;
