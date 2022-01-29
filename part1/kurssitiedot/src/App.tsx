@@ -12,7 +12,6 @@ const App = () => {
   return (
     <div>
       <Header course={course}></Header>
-      <h1>{course}</h1>
       <p>
         {part1} {exercises1}
       </p>
