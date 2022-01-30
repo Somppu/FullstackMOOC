@@ -1,23 +1,17 @@
-import React from 'react';
-
 const App = () => {
   const course = 'Half Stack application development';
-  const part1 = 'Fundamentals of React';
-  const exercises1 = 10;
-  const part2 = 'Using props to pass data';
-  const exercises2 = 7;
-  const part3 = 'State of a component';
-  const exercises3 = 14;
+
+  const parts = {
+    part1: { name: 'Fundamentals of React', exercices: 10 },
+    part2: { name: 'Using props to pass data', exercices: 7 },
+    part3: { name: 'Using props to pass data', exercices: 14 },
+  };
 
   return (
     <div>
       <Header course={course}></Header>
-
-      <Content parts={part1} exercises={exercises1}></Content>
-      <Content parts={part2} exercises={exercises2}></Content>
-      <Content parts={part3} exercises={exercises3}></Content>
-
-      <Total total={exercises1 + exercises2 + exercises3}></Total>
+      <Content parts={parts}></Content>
+      <Total parts={parts}></Total>
     </div>
   );
 };
@@ -27,16 +21,52 @@ const Header = (props: { course: string }) => {
   return <h1>{props.course}</h1>;
 };
 
-const Content = (props: { parts: string; exercises: number }) => {
+const Content = (props: {
+  parts: {
+    part1: { name: string; exercices: number };
+    part2: { name: string; exercices: number };
+    part3: { name: string; exercices: number };
+  };
+}) => {
   return (
-    <p>
-      {props.parts} {props.exercises}
-    </p>
+    <div>
+      <Part
+        part={props.parts.part1.name}
+        excercises={props.parts.part1.exercices}
+      />
+      <Part
+        part={props.parts.part2.name}
+        excercises={props.parts.part2.exercices}
+      />
+      <Part
+        part={props.parts.part3.name}
+        excercises={props.parts.part3.exercices}
+      />
+    </div>
   );
 };
 
-const Total = (props: { total: number }) => {
-  return <p>Number of exercises {props.total}</p>;
+const Part = (props: { part: string; excercises: number }) => {
+  return (
+    <p>
+      {props.part} {props.excercises}
+    </p>
+  );
+};
+const Total = (props: {
+  parts: {
+    part1: { exercices: number };
+    part2: { exercices: number };
+    part3: { exercices: number };
+  };
+}) => {
+  return (
+    <div>
+      {props.parts.part1.exercices +
+        props.parts.part2.exercices +
+        props.parts.part3.exercices}
+    </div>
+  );
 };
 
 export default App;
