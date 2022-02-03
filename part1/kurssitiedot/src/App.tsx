@@ -1,11 +1,13 @@
+type Course = { name: string; exercices: number };
+
 const App = () => {
   const course = 'Half Stack application development';
 
-  const parts = {
-    part1: { name: 'Fundamentals of React', exercices: 10 },
-    part2: { name: 'Using props to pass data', exercices: 7 },
-    part3: { name: 'Using props to pass data', exercices: 14 },
-  };
+  const parts: Course[] = [
+    { name: 'Fundamentals of React', exercices: 10 },
+    { name: 'Using props to pass data', exercices: 7 },
+    { name: 'Using props to pass data', exercices: 14 },
+  ];
 
   return (
     <div>
@@ -21,31 +23,6 @@ const Header = (props: { course: string }) => {
   return <h1>{props.course}</h1>;
 };
 
-const Content = (props: {
-  parts: {
-    part1: { name: string; exercices: number };
-    part2: { name: string; exercices: number };
-    part3: { name: string; exercices: number };
-  };
-}) => {
-  return (
-    <div>
-      <Part
-        part={props.parts.part1.name}
-        excercises={props.parts.part1.exercices}
-      />
-      <Part
-        part={props.parts.part2.name}
-        excercises={props.parts.part2.exercices}
-      />
-      <Part
-        part={props.parts.part3.name}
-        excercises={props.parts.part3.exercices}
-      />
-    </div>
-  );
-};
-
 const Part = (props: { part: string; excercises: number }) => {
   return (
     <p>
@@ -53,20 +30,28 @@ const Part = (props: { part: string; excercises: number }) => {
     </p>
   );
 };
-const Total = (props: {
-  parts: {
-    part1: { exercices: number };
-    part2: { exercices: number };
-    part3: { exercices: number };
-  };
-}) => {
+
+const Content = (props: { parts: Course[] }) => {
+  // {props.parts.map((part) => {
+  //   return <Part part={part.name} excercises={part.exercices} />;
+  // })}
+
   return (
     <div>
-      {props.parts.part1.exercices +
-        props.parts.part2.exercices +
-        props.parts.part3.exercices}
+      <Part part={props.parts[0].name} excercises={props.parts[0].exercices} />
+      <Part part={props.parts[1].name} excercises={props.parts[1].exercices} />
+      <Part part={props.parts[2].name} excercises={props.parts[2].exercices} />
     </div>
   );
+};
+
+const Total = (props: { parts: Course[] }) => {
+  const total =
+    props.parts[0].exercices +
+    props.parts[1].exercices +
+    props.parts[2].exercices;
+
+  return <div>{total}</div>;
 };
 
 export default App;
