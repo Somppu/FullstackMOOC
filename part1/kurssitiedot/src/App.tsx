@@ -1,19 +1,25 @@
-type Course = { name: string; exercices: number };
+type Course = { name: string; exercises: number };
 
+type PartsKey = 'eka' | 'toka' | 'kolmas';
+type PartObject = {
+  [key in PartsKey]: Course;
+};
 const App = () => {
-  const course = 'Half Stack application development';
-
-  const parts: Course[] = [
-    { name: 'Fundamentals of React', exercices: 10 },
-    { name: 'Using props to pass data', exercices: 7 },
-    { name: 'Using props to pass data', exercices: 14 },
-  ];
+  //Kurssiolio
+  const course = {
+    name: 'Half Stack application development',
+    parts: {
+      eka: { name: 'Fundamentals of React', exercises: 10 },
+      toka: { name: 'Using props to pass data', exercises: 7 },
+      kolmas: { name: 'State of a component', exercises: 14 },
+    },
+  };
 
   return (
     <div>
-      <Header course={course}></Header>
-      <Content parts={parts}></Content>
-      <Total parts={parts}></Total>
+      <Header course={course.name}></Header>
+      <Content parts={course.parts}></Content>
+      <Total parts={course.parts}></Total>
     </div>
   );
 };
@@ -31,25 +37,34 @@ const Part = (props: { part: string; excercises: number }) => {
   );
 };
 
-const Content = (props: { parts: Course[] }) => {
+const Content = (props: { parts: PartObject }) => {
   // {props.parts.map((part) => {
   //   return <Part part={part.name} excercises={part.exercices} />;
   // })}
 
   return (
     <div>
-      <Part part={props.parts[0].name} excercises={props.parts[0].exercices} />
-      <Part part={props.parts[1].name} excercises={props.parts[1].exercices} />
-      <Part part={props.parts[2].name} excercises={props.parts[2].exercices} />
+      <Part
+        part={props.parts.eka.name}
+        excercises={props.parts.eka.exercises}
+      ></Part>
+      <Part
+        part={props.parts.toka.name}
+        excercises={props.parts.toka.exercises}
+      ></Part>
+      <Part
+        part={props.parts.kolmas.name}
+        excercises={props.parts.kolmas.exercises}
+      ></Part>
     </div>
   );
 };
 
-const Total = (props: { parts: Course[] }) => {
+const Total = (props: { parts: PartObject }) => {
   const total =
-    props.parts[0].exercices +
-    props.parts[1].exercices +
-    props.parts[2].exercices;
+    props.parts.eka.exercises +
+    props.parts.toka.exercises +
+    props.parts.kolmas.exercises;
 
   return <div>{total}</div>;
 };
