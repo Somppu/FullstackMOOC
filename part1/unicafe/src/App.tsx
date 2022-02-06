@@ -27,13 +27,6 @@ const App = () => {
       <Button handleClick={handleBadClick} text='bad' />
       <Header header={header2}></Header>
       <Statics good={good} neutral={neutral} bad={bad}></Statics>
-      {/* good: {good} <br />
-      neutral: {neutral} <br />
-      bad: {bad} <br />
-      all: {good + neutral + bad}
-      average: {(good * 1 + bad * -1) / (good + neutral + bad)}
-      <br />
-      positive: {(good / (good + neutral + bad)) * 100}%{' '} */}
     </div>
   );
 };
@@ -50,18 +43,15 @@ const Button = (props: {
   return <button onClick={handleClick}>{text}</button>;
 };
 
-const Statics = (props: {
-  good: number;
-  // all: number;
-  // average: number;
-  // positive: number;
-  bad: number;
-  neutral: number;
-}) => {
-  // const average: number = props.good;
+const Statics = (props: { good: number; bad: number; neutral: number }) => {
   const all: number = props.good + props.neutral + props.bad;
   const average: number = props.good * 1 + (props.bad * -1) / all;
   const positive: number = (props.good / all) * 100;
+
+  if (all === 0) {
+    // return <p> No feedback given</p>;
+    return null;
+  }
   return (
     <p>
       good: {props.good} <br />
